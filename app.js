@@ -264,8 +264,8 @@ app.put("/todos/:todoId/", async (request, Response) => {
   const { todoId } = request.params;
   let updateColumn = "";
   const requestBody = request.body;
-    
-  const previousTodoQuery = `SELECT * FROM todo WHERE id=${todoId};`;
+
+  const previousTodoQuery = `SELECT * FROM todo WHERE id= ${todoId};`;
   const previousTodo = await database.get(previousTodoQuery);
   const {
     todo = previousTodo.todo,
@@ -284,8 +284,8 @@ app.put("/todos/:todoId/", async (request, Response) => {
               priority='${priority}',
               status='${status}',
               category='${category}',
-              due_date=${dueDate},
-              WHERE id=${todoId};`;
+              due_date='${dueDate}'
+              WHERE  id=${todoId};`;
         await database.run(updateTodoQuery);
         Response.send("Status Updated");
       } else {
@@ -301,7 +301,7 @@ app.put("/todos/:todoId/", async (request, Response) => {
               priority='${priority}',
               status='${status}',
               category='${category}',
-              due_date='${dueDate}',
+              due_date='${dueDate}'
               WHERE id=${todoId};`;
         await database.run(updateTodoQuery);
         Response.send("Priority Updated");
@@ -317,7 +317,7 @@ app.put("/todos/:todoId/", async (request, Response) => {
               priority='${priority}',
               status='${status}',
               category='${category}',
-              due_date='${dueDate}',
+              due_date='${dueDate}'
               WHERE id=${todoId};`;
       await database.run(updateTodoQuery);
       Response.send("Todo Updated");
@@ -335,7 +335,7 @@ app.put("/todos/:todoId/", async (request, Response) => {
               priority='${priority}',
               status='${status}',
               category='${category}',
-              due_date='${dueDate}',
+              due_date='${dueDate}'
               WHERE id=${todoId};`;
         await database.run(updateTodoQuery);
         Response.send("Category Updated");
@@ -347,13 +347,13 @@ app.put("/todos/:todoId/", async (request, Response) => {
 
     case requestBody.dueDate !== undefined:
       if (isMatch(dueDate, "yyyy-MM-dd")) {
-        const newDueDate = format(new Date(dueDate), "yyyy-MM-dd");
+        const wDueDate = format(new Date(dueDate), "yyyy-MM-dd");
         updateTodoQuery = ` UPDATE todo SET
               todo='${todo}',
               priority='${priority}',
               status='${status}',
               category='${category}',
-              due_date='${dueDate}',
+              due_date='${wDueDate}'
               WHERE id=${todoId};`;
         await database.run(updateTodoQuery);
         Response.send("Due Date Updated");

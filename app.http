@@ -59,6 +59,14 @@ Content-Type: application/json
 }
 
 ###
+PUT http://localhost:3000/todos/4/
+Content-Type: application/json
+
+{
+    "dueDate": "2021-01-12"
+}
+
+###
 delete http://localhost:3000/todos/7/
 
 
